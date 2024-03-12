@@ -37,6 +37,7 @@ def main(wf: Workflow):
             item = wf.add_item(
                 title=result.text,
                 arg=result.text,
+                valid=True,
             )
             item.add_modifier('cmd', subtitle=f'Search for "{query}"', arg=r.url)
             items.append(item)
@@ -44,12 +45,14 @@ def main(wf: Workflow):
         item = wf.add_item(
             title=f"No results for '{query}'",
             subtitle='Try searching another word/phrase',
+            valid=False
         )
         item.add_modifier('cmd', subtitle=f'Search for "{query}"', arg=r.url)
 
     if len(items) < 2:
         item = wf.add_item(
             title=f'End of list.',
+            valid=False
         )
         item.add_modifier('cmd', subtitle=f'Search for "{query}"', arg=r.url)
 
